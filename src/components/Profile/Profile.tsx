@@ -14,10 +14,8 @@ const Profile: React.FC<ProfileProps> = ({ name, title, description, imageUrl })
   return (
     // Use the ID for global CSS targeting and animations
     <div id='profile' className='section-container'>
-      {' '}
       {/* Add a general class if needed */}
       <div className='profile-container'>
-        {' '}
         {/* Keep original classes for styling */}
         <div className='profile-image-frame'>
           <div className='profile-image-glow'></div>

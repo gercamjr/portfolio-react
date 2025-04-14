@@ -1,4 +1,6 @@
-/* --- Global Styles & Variables --- */
+/* ============================================= */
+/* === Global Styles & Variables === */
+/* ============================================= */
 :root {
   --background-color: #021022; /* Deep dark blue */
   --primary-text-color: #e0e0e0; /* Light grey */
@@ -6,6 +8,9 @@
   --secondary-text-color: #a0a0c0; /* Lighter purplish grey */
   --glow-color: rgba(0, 255, 255, 0.4); /* Cyan glow with transparency */
   --border-color: rgba(0, 255, 255, 0.2); /* Subtle cyan border */
+  --container-bg-color: rgba(10, 25, 47, 0.3); /* Shared background for sections */
+  --card-bg-color: rgba(14, 33, 61, 0.8); /* Slightly darker card background */
+  --input-bg-color: rgba(2, 16, 34, 0.7); /* Dark input background */
 }
 
 * {
@@ -14,17 +19,17 @@
   box-sizing: border-box;
 }
 
-body {
-  background-color: var(--background-color);
+html {
+  font-family: 'Orbitron', sans-serif; /* Base font */
   color: var(--primary-text-color);
-  font-family: 'Roboto', sans-serif; /* Base font */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh; /* Ensure section is centered vertically */
+  background-color: var(--background-color); /* Apply base background */
 }
 
-/* Target the main App wrapper or whichever element directly contains your sections */
+/* ============================================= */
+/* === Scroll Snapping Setup === */
+/* ============================================= */
+
+/* Main scroll container */
 .App {
   height: 100vh; /* Container takes full viewport height */
   overflow-y: scroll; /* Enable vertical scrolling on this container */
@@ -32,17 +37,15 @@ body {
   scroll-behavior: smooth; /* Smooth transition between sections */
 }
 
-/* Style each section to be a snap target */
-/* Target the outermost div of each section component */
+/* Base styles for each snap target section */
 #profile,
 #skills,
 #projects,
 #contact {
-  /* Or use a common class like .section-container if added */
   height: 100vh; /* Each section takes full viewport height */
   width: 100%; /* Ensure full width */
   scroll-snap-align: start; /* Snap the top of the section to the top of the viewport */
-  scroll-snap-stop: always; /* Ensures it always stops here (optional but can help consistency) */
+  scroll-snap-stop: always; /* Ensures it always stops here */
 
   /* Centering content within the 100vh section */
   display: flex;
@@ -51,176 +54,37 @@ body {
   align-items: center; /* Center content horizontally */
   padding: 40px; /* Add padding inside the section */
   box-sizing: border-box; /* Include padding in height/width calculation */
-  position: relative; /* Needed for absolute positioning or pseudo-elements if used */
+  position: relative;
   overflow: hidden; /* Hide overflow from the section *itself* */
+
+  /* Apply consistent background/border to sections */
+  background-color: var(--container-bg-color);
+  border-bottom: 1px solid var(--border-color); /* Separator between sections */
+  /* Add inset shadow for depth */
+  box-shadow: inset 0 0 15px rgba(2, 16, 34, 0.6);
 }
 
-/* --- Profile Section --- */
-#profile {
-  width: 100%;
-  max-width: 900px; /* Limit max width */
+/* Remove bottom border from the last section */
+#contact {
+  border-bottom: none;
 }
 
-.profile-container {
-  display: flex;
-  align-items: center; /* Vertically align items */
-  gap: 40px; /* Space between image and text */
-  padding: 40px;
-  background-color: rgba(10, 25, 47, 0.5); /* Slightly lighter, transparent background */
-  border: 1px solid var(--border-color);
-  border-radius: 8px; /* Slightly rounded corners */
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3), /* Soft dark shadow */ inset 0 0 10px rgba(2, 16, 34, 0.5); /* Inner shadow */
-  position: relative; /* For potential pseudo-elements */
-  overflow: hidden; /* Hide overflow from potential effects */
-}
-
-/* --- Profile Image --- */
-.profile-image-frame {
-  position: relative; /* Needed for glow positioning */
-  flex-shrink: 0; /* Prevent image from shrinking */
-}
-
-.profile-image {
-  display: block; /* Remove extra space below image */
-  width: 180px;
-  height: 180px;
-  border-radius: 50%; /* Circular image */
-  object-fit: cover; /* Cover the area without distortion */
-  border: 3px solid var(--accent-color); /* Accent color border */
-  position: relative; /* To sit above the glow */
-  z-index: 2;
-}
-
-/* Subtle glow effect */
-.profile-image-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 180px; /* Match image size */
-  height: 180px; /* Match image size */
-  border-radius: 50%;
-  background: transparent;
-  box-shadow: 0 0 25px 8px var(--glow-color); /* The actual glow */
-  transform: translate(-50%, -50%);
-  z-index: 1;
-}
-
-/* --- Profile Text --- */
-.profile-text {
-  flex-grow: 1; /* Allow text block to take remaining space */
-}
-
-.profile-name {
-  font-family: 'Orbitron', sans-serif; /* Futuristic font for name */
-  font-size: 2.5rem; /* Larger name */
-  color: var(--primary-text-color);
-  margin-bottom: 5px;
-  letter-spacing: 1px;
-  font-weight: 700;
-  text-shadow: 0 0 5px var(--glow-color); /* Subtle text glow */
-}
-
-.profile-title {
-  font-family: 'Orbitron', sans-serif; /* Futuristic font for title */
-  font-size: 1.3rem;
-  color: var(--accent-color); /* Use accent color for title */
-  margin-bottom: 20px;
-  font-weight: 400;
-  letter-spacing: 2px;
-  text-transform: uppercase; /* Uppercase for tech feel */
-}
-
-.profile-description {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--secondary-text-color);
-  margin-bottom: 25px;
-}
-
-/* Simple divider */
-.tech-divider {
-  height: 2px;
-  width: 80px;
-  background: linear-gradient(90deg, var(--accent-color), transparent); /* Fading gradient line */
-  margin-top: 15px; /* Space above divider */
-  opacity: 0.7;
-}
-
-/* --- Responsive Design --- */
-@media (max-width: 768px) {
-  .profile-container {
-    flex-direction: column; /* Stack image and text vertically */
-    text-align: center; /* Center text */
-    padding: 30px;
-    gap: 30px;
-  }
-
-  .profile-image-frame {
-    margin-bottom: 10px; /* Add space below image when stacked */
-  }
-
-  .profile-image,
-  .profile-image-glow {
-    width: 150px;
-    height: 150px;
-  }
-
-  .profile-name {
-    font-size: 2rem;
-  }
-
-  .profile-title {
-    font-size: 1.1rem;
-  }
-
-  .tech-divider {
-    margin: 15px auto 0 auto; /* Center divider */
-  }
-}
-
-@media (max-width: 480px) {
-  .profile-name {
-    font-size: 1.8rem;
-  }
-
-  .profile-title {
-    font-size: 1rem;
-  }
-
-  .profile-description {
-    font-size: 0.9rem;
-  }
-  .profile-image,
-  .profile-image-glow {
-    width: 120px;
-    height: 120px;
-  }
-}
-/* --- General Section Styles (if not already defined globally) --- */
-section {
-  padding: 60px 20px; /* Add padding to sections */
-  width: 100%;
-  max-width: 900px; /* Consistent max width */
-  margin: 0 auto 40px auto; /* Center sections and add bottom margin */
-}
-
-/* Apply container styling consistently if needed */
-/* You might reuse .profile-container styling or create a general .section-container */
-
+/* Base Section Heading Styling */
 .section-heading {
   font-family: 'Orbitron', sans-serif;
   font-size: 2rem;
   color: var(--accent-color);
   text-align: center;
-  margin-bottom: 40px; /* Space below heading */
   text-transform: uppercase;
   letter-spacing: 2px;
   text-shadow: 0 0 8px var(--glow-color);
-  position: relative; /* For pseudo-elements */
+  position: relative;
+  margin-top: 0; /* Reset top margin */
+  margin-bottom: 30px; /* Consistent space below heading */
   padding-bottom: 10px; /* Space for underline */
+  flex-shrink: 0; /* Prevent heading shrinking */
 }
 
-/* Optional: Add an underline effect to the heading */
 .section-heading::after {
   content: '';
   position: absolute;
@@ -233,93 +97,468 @@ section {
   opacity: 0.8;
 }
 
-/* --- Skills Section --- */
-#skills {
-  /* Uses general section padding defined above */
-  background-color: rgba(10, 25, 47, 0.3); /* Optional: Slight background difference */
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(2, 16, 34, 0.5);
+/* ============================================= */
+/* === Profile Section (#profile) === */
+/* ============================================= */
+
+#profile .profile-container {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  max-width: 900px;
+  width: 100%;
+  /* Removed padding, border, bg - now on #profile */
+  /* Internal overflow handling (uncomment if needed) */
+  /* overflow-y: auto; */
+  /* max-height: calc(100% - 40px); */
+  /* padding: 20px; */
 }
 
-.skills-grid {
+#profile .profile-image-frame {
+  position: relative;
+  flex-shrink: 0;
+}
+
+#profile .profile-image {
+  display: block;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent-color);
+  position: relative;
+  z-index: 2;
+}
+
+#profile .profile-image-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: 0 0 25px 8px var(--glow-color);
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  transition: box-shadow 0.4s ease-out; /* For hover */
+}
+
+#profile .profile-text {
+  flex-grow: 1;
+}
+
+#profile .profile-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
+  color: var(--primary-text-color);
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  text-shadow: 0 0 5px var(--glow-color);
+}
+
+#profile .profile-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.3rem;
+  color: var(--accent-color);
+  margin-bottom: 20px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+#profile .profile-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--secondary-text-color);
+  margin-bottom: 25px;
+}
+
+#profile .tech-divider {
+  height: 2px;
+  width: 80px;
+  background: linear-gradient(90deg, var(--accent-color), transparent);
+  margin-top: 15px;
+  opacity: 0.7;
+}
+
+/* Hover effect for profile image */
+#profile .profile-image-frame:hover .profile-image-glow {
+  box-shadow: 0 0 35px 12px var(--glow-color);
+}
+
+/* ============================================= */
+/* === Skills Section (#skills) === */
+/* ============================================= */
+
+/* Wrapper for internal scrolling */
+#skills .skills-grid-container {
+  max-width: 900px;
+  width: 100%;
+  overflow-y: auto; /* Enable internal scroll */
+  max-height: calc(100% - 100px); /* Adjust calc based on heading height + desired spacing */
+  padding: 10px 15px; /* Padding for scrollable area */
+  /* Custom scrollbar styling (optional) */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: rgba(2, 16, 34, 0.5);
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: var(--accent-color);
+  }
+}
+
+#skills .skills-grid {
   display: grid;
-  /* Responsive grid: min 120px width, max 1fr (equal share) */
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 25px; /* Gap between skill items */
+  gap: 25px;
+  width: 100%; /* Grid takes full width of its container */
 }
 
-.skill-item {
-  background-color: rgba(10, 25, 47, 0.7); /* Slightly darker item background */
+#skills .skill-item {
+  background-color: var(--card-bg-color);
   border: 1px solid var(--border-color);
   border-radius: 5px;
   padding: 20px 15px;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  /* Add opacity to existing transition */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.5s ease-out;
 }
 
-.skill-item:hover {
-  transform: translateY(-5px); /* Lift effect on hover */
-  border-color: var(--accent-color); /* Highlight border on hover */
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4), /* Deeper shadow */ 0 0 10px var(--glow-color); /* Accent glow */
+#skills .skill-item:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent-color);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4), 0 0 10px var(--glow-color);
 }
 
-.skill-icon {
-  font-size: 2.5rem; /* Icon size */
-  color: var(--accent-color); /* Icon color */
-  margin-bottom: 12px; /* Space between icon and text */
-  display: block; /* Ensure icon is on its own line */
+#skills .skill-icon {
+  font-size: 2.5rem;
+  color: var(--accent-color);
+  margin-bottom: 12px;
+  display: block;
 }
 
-.skill-name {
+#skills .skill-name {
   font-size: 0.9rem;
   color: var(--primary-text-color);
   font-weight: 400;
-  display: block; /* Ensure text is on its own line */
+  display: block;
 }
 
-/* --- Responsive Adjustments for Skills --- */
-@media (max-width: 768px) {
-  .section-heading {
-    font-size: 1.8rem;
-  }
-  .skills-grid {
-    gap: 20px;
-    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-  }
-  .skill-icon {
-    font-size: 2.2rem;
-  }
-}
+/* ============================================= */
+/* === Projects Section (#projects) === */
+/* ============================================= */
 
-@media (max-width: 480px) {
-  section {
-    padding: 40px 15px;
+#projects .projects-grid {
+  max-width: 1100px;
+  width: 100%;
+  overflow-y: auto; /* Enable internal scroll */
+  max-height: calc(100% - 100px); /* Adjust calc based on heading height + desired spacing */
+  padding: 20px 15px; /* Padding for scrollable area */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  /* Custom scrollbar styling (optional) */
+  &::-webkit-scrollbar {
+    width: 8px;
   }
-  .section-heading {
-    font-size: 1.6rem;
+  &::-webkit-scrollbar-track {
+    background: rgba(2, 16, 34, 0.5);
+    border-radius: 4px;
   }
-  .skills-grid {
-    gap: 15px;
-    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); /* Smaller minimum size */
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: content-box;
   }
-  .skill-item {
-    padding: 15px 10px;
-  }
-  .skill-icon {
-    font-size: 2rem;
-    margin-bottom: 8px;
-  }
-  .skill-name {
-    font-size: 0.85rem;
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: var(--accent-color);
   }
 }
 
-/* --- Keyframe Animations --- */
+#projects .project-card {
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.4s ease, border-color 0.3s ease;
+}
+
+#projects .project-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent-color);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5), 0 0 18px var(--glow-color);
+}
+
+#projects .project-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+#projects .project-card:hover .project-image {
+  transform: scale(1.03);
+}
+
+#projects .project-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+#projects .project-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.3rem;
+  color: var(--primary-text-color);
+  margin-bottom: 10px;
+}
+
+#projects .project-description {
+  font-size: 0.9rem;
+  color: var(--secondary-text-color);
+  line-height: 1.6;
+  margin-bottom: 15px;
+  flex-grow: 1;
+}
+
+#projects .project-tags {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+#projects .tag {
+  background-color: var(--accent-color);
+  color: var(--background-color);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+#projects .project-links {
+  padding-top: 15px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+#projects .project-link {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+#projects .project-link i {
+  font-size: 0.9rem;
+}
+
+#projects .project-link:hover {
+  color: #ffffff;
+  text-shadow: 0 0 5px var(--glow-color);
+}
+
+/* ============================================= */
+/* === Contact Section (#contact) === */
+/* ============================================= */
+
+#contact .contact-container {
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  overflow-y: auto; /* Enable internal scroll */
+  max-height: calc(100% - 100px); /* Adjust calc */
+  padding: 15px;
+  /* Custom scrollbar styling (optional) */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: rgba(2, 16, 34, 0.5);
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: var(--accent-color);
+  }
+}
+
+#contact .contact-info {
+  flex: 1;
+  min-width: 280px;
+}
+
+#contact .contact-intro,
+#contact .contact-form-intro {
+  font-size: 1rem;
+  color: var(--secondary-text-color);
+  line-height: 1.7;
+  margin-bottom: 25px;
+}
+#contact .contact-form-intro {
+  margin-top: 30px;
+  margin-bottom: 0;
+  font-weight: 500;
+  color: var(--primary-text-color);
+}
+
+#contact .social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+#contact .social-link {
+  color: var(--secondary-text-color);
+  font-size: 1.9rem;
+  display: inline-block;
+  /* Added transform to transition */
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+#contact .social-link:hover {
+  color: var(--accent-color);
+  transform: scale(1.15) translateY(-2px);
+}
+
+#contact .contact-form-container {
+  flex: 2;
+  min-width: 320px;
+}
+
+#contact #contact-form .form-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+#contact #contact-form label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--secondary-text-color);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+#contact #contact-form input[type='text'],
+#contact #contact-form input[type='email'],
+#contact #contact-form textarea {
+  width: 100%;
+  padding: 14px 18px;
+  background-color: var(--input-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--primary-text-color);
+  font-size: 0.95rem;
+  font-family: 'Roboto', sans-serif;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+#contact #contact-form input[type='text']:focus,
+#contact #contact-form input[type='email']:focus,
+#contact #contact-form textarea:focus {
+  background-color: rgba(2, 16, 34, 0.9);
+  border-color: var(--accent-color);
+  outline: none;
+  box-shadow: 0 0 10px -2px var(--glow-color);
+}
+
+#contact #contact-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+#contact .submit-button {
+  padding: 14px 30px;
+  background-color: var(--accent-color);
+  color: #021022;
+  border: none;
+  border-radius: 5px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+#contact .submit-button i {
+  font-size: 0.9rem;
+}
+
+#contact .submit-button:hover {
+  background-color: #4fffff;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 6px 18px rgba(0, 255, 255, 0.35);
+}
+
+#contact .submit-button:active {
+  transform: translateY(-1px) scale(1);
+  box-shadow: 0 3px 10px rgba(0, 255, 255, 0.2);
+}
+
+#contact .form-status {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
+}
+#contact .form-status.success {
+  color: #e0e0e0;
+  background-color: rgba(0, 255, 255, 0.2);
+  border: 1px solid var(--accent-color);
+}
+#contact .form-status.error {
+  color: #ffcdd2;
+  background-color: rgba(255, 107, 107, 0.2); /* Reddish background */
+  border: 1px solid #ff6b6b;
+}
+
+/* ============================================= */
+/* === Keyframe Animations === */
+/* ============================================= */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(25px); /* Start slightly lower */
+    transform: translateY(25px);
   }
   to {
     opacity: 1;
@@ -330,7 +569,7 @@ section {
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(0.85); /* Start slightly smaller */
+    transform: scale(0.85);
   }
   to {
     opacity: 1;
@@ -341,7 +580,7 @@ section {
 @keyframes fadeInScaleUp {
   from {
     opacity: 0;
-    transform: scale(0.9); /* Start slightly smaller */
+    transform: scale(0.9);
   }
   to {
     opacity: 1;
@@ -349,421 +588,236 @@ section {
   }
 }
 
-/* --- Applying Animations (within prefers-reduced-motion) --- */
+/* ============================================= */
+/* === Applying Animations === */
+/* ============================================= */
 @media (prefers-reduced-motion: no-preference) {
   /* Profile Section Animations */
-  .profile-image-frame {
-    opacity: 0; /* Start hidden */
+  #profile .profile-image-frame {
+    opacity: 0;
     animation: scaleIn 0.7s 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    /* animation: name duration delay timing-function fill-mode */
   }
-
-  .profile-text {
-    opacity: 0; /* Start hidden */
+  #profile .profile-text {
+    opacity: 0;
     animation: fadeInUp 0.8s 0.5s ease-out forwards;
-    /* Delay slightly after image */
   }
 
   /* Skills Section Animations */
   #skills .section-heading {
-    opacity: 0; /* Start hidden */
+    opacity: 0;
     animation: fadeInUp 0.6s 0.2s ease-out forwards;
-    /* Animate heading first in this section */
   }
-
-  .skill-item {
-    opacity: 0; /* Start hidden */
+  #skills .skill-item {
+    opacity: 0;
     animation: fadeInScaleUp 0.5s 0.4s ease-out forwards;
-    /* Base delay after heading */
-
-    /* Basic Staggering: You can manually add delays for the first few items */
-    /* Uncomment and adjust if you want more explicit staggering */
-    /*
-      &:nth-child(1) { animation-delay: 0.4s; }
-      &:nth-child(2) { animation-delay: 0.45s; }
-      &:nth-child(3) { animation-delay: 0.5s; }
-      &:nth-child(4) { animation-delay: 0.55s; }
-      &:nth-child(5) { animation-delay: 0.6s; }
-      &:nth-child(6) { animation-delay: 0.65s; }
-      // ... add more if needed ...
-      */
+    /* Manual Staggering (Example) */
+    /* &:nth-child(1) { animation-delay: 0.4s; } ... */
   }
 
-  /* Enhanced Profile Image Hover */
-  .profile-image-glow {
-    /* Add transition for smooth effect changes */
-    transition: box-shadow 0.4s ease-out;
-  }
-
-  .profile-image-frame:hover .profile-image-glow {
-    /* Slightly stronger/wider glow on hover */
-    box-shadow: 0 0 35px 12px var(--glow-color);
-  }
-
-  /* Ensure smooth transition for skill item hover too */
-  .skill-item {
-    /* Add opacity to existing transition */
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.5s ease-out;
-  }
-} /* End of prefers-reduced-motion media query */
-
-/* --- Ensure base styles allow transitions --- */
-/* (Add if not already present on the element) */
-.profile-image-glow {
-  /* Ensures the transition back from hover is smooth */
-  transition: box-shadow 0.4s ease-out;
-}
-/* --- Projects Section --- */
-#projects {
-  /* Inherits general section padding and max-width */
-  /* Optional: Add specific background/border if desired, like #skills */
-  background-color: rgba(10, 25, 47, 0.3);
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(2, 16, 34, 0.5);
-}
-
-.projects-grid {
-  display: grid;
-  /* Responsive grid - adjust minmax as needed */
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px; /* Space between cards */
-  padding-top: 10px; /* Space below heading */
-}
-
-.project-card {
-  background-color: rgba(14, 33, 61, 0.8); /* Slightly different card bg */
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  overflow: hidden; /* Keep image corners rounded */
-  display: flex;
-  flex-direction: column; /* Stack image, content */
-  transition: transform 0.3s ease, box-shadow 0.4s ease, border-color 0.3s ease;
-}
-
-.project-card:hover {
-  transform: translateY(-6px); /* Slightly more lift */
-  border-color: var(--accent-color);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5), /* Enhanced shadow */ 0 0 18px var(--glow-color); /* Enhanced glow */
-}
-
-.project-image {
-  width: 100%;
-  height: 200px; /* Adjust height as needed */
-  object-fit: cover; /* Cover area, may crop */
-  display: block; /* Remove extra space */
-  /* Optional subtle effect: filter: grayscale(30%) contrast(110%); */
-  transition: transform 0.3s ease;
-}
-
-.project-card:hover .project-image {
-  transform: scale(1.03); /* Slight zoom on card hover */
-  /* Optional: filter: grayscale(0%) contrast(100%); */
-}
-
-.project-content {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1; /* Allows content to fill space */
-}
-
-.project-title {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.3rem; /* Slightly smaller than section headings */
-  color: var(--primary-text-color);
-  margin-bottom: 10px;
-}
-
-.project-description {
-  font-size: 0.9rem;
-  color: var(--secondary-text-color);
-  line-height: 1.6;
-  margin-bottom: 15px;
-  flex-grow: 1; /* Pushes tags/links down */
-}
-
-.project-tags {
-  margin-bottom: 20px; /* Space above links */
-  display: flex;
-  flex-wrap: wrap; /* Allow tags to wrap */
-  gap: 8px;
-}
-
-.tag {
-  background-color: var(--accent-color);
-  color: var(--background-color); /* Dark text on light tag */
-  padding: 4px 10px;
-  border-radius: 4px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.project-links {
-  padding-top: 15px; /* Space above links */
-  border-top: 1px solid var(--border-color); /* Separator line */
-  display: flex;
-  gap: 20px; /* Space between links */
-  flex-wrap: wrap; /* Allow links to wrap on small cards */
-}
-
-.project-link {
-  color: var(--accent-color);
-  text-decoration: none;
-  font-size: 0.85rem;
-  font-weight: 500;
-  display: inline-flex; /* Align icon and text */
-  align-items: center;
-  gap: 6px; /* Space between icon and text */
-  transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-
-.project-link i {
-  font-size: 0.9rem; /* Slightly larger icon */
-}
-
-.project-link:hover {
-  color: #ffffff; /* Brighter white on hover */
-  text-shadow: 0 0 5px var(--glow-color);
-  /* text-decoration: underline; */ /* Optional underline */
-}
-
-/* --- Animations for Projects Section --- */
-@media (prefers-reduced-motion: no-preference) {
+  /* Projects Section Animations */
   #projects .section-heading {
-    opacity: 0; /* Start hidden */
+    opacity: 0;
     animation: fadeInUp 0.6s 0.2s ease-out forwards;
-    /* Delay after skills potentially finish animating */
   }
-
-  .project-card {
-    opacity: 0; /* Start hidden */
+  #projects .project-card {
+    opacity: 0;
     animation: fadeInScaleUp 0.6s ease-out forwards;
-    /* Base delay - adjust as needed */
     animation-delay: 0.4s;
-
-    /* Optional: More explicit staggering (adjust delays) */
-    /*
-      &:nth-child(1) { animation-delay: 0.4s; }
-      &:nth-child(2) { animation-delay: 0.5s; }
-      &:nth-child(3) { animation-delay: 0.6s; }
-      // ...
-      */
+    /* Manual Staggering (Example) */
+    /* &:nth-child(1) { animation-delay: 0.4s; } ... */
   }
-}
 
-/* --- Responsive Adjustments for Projects --- */
-@media (max-width: 768px) {
-  .projects-grid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-  }
-  .project-title {
-    font-size: 1.2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .projects-grid {
-    grid-template-columns: 1fr; /* Stack cards on very small screens */
-    gap: 20px;
-  }
-  .project-image {
-    height: 180px;
-  }
-  .project-content {
-    padding: 15px;
-  }
-  .project-title {
-    font-size: 1.1rem;
-  }
-  .project-description {
-    font-size: 0.85rem;
-  }
-  .tag {
-    font-size: 0.65rem;
-    padding: 3px 8px;
-  }
-  .project-link {
-    font-size: 0.8rem;
-  }
-}
-/* --- Contact Section --- */
-#contact {
-  /* Inherits general section padding and max-width */
-  background-color: rgba(10, 25, 47, 0.3);
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(2, 16, 34, 0.5);
-}
-
-.contact-container {
-  display: flex;
-  flex-wrap: wrap; /* Stack on smaller screens */
-  gap: 40px; /* Space between info and form */
-  padding-top: 10px;
-}
-
-.contact-info {
-  flex: 1; /* Takes up 1 part of the space */
-  min-width: 280px; /* Minimum width before wrapping */
-}
-
-.contact-intro,
-.contact-form-intro {
-  font-size: 1rem;
-  color: var(--secondary-text-color);
-  line-height: 1.7;
-  margin-bottom: 25px;
-}
-.contact-form-intro {
-  margin-top: 30px;
-  margin-bottom: 0;
-  font-weight: 500;
-  color: var(--primary-text-color);
-}
-
-.social-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px; /* Space between icons */
-}
-
-.social-link {
-  color: var(--secondary-text-color);
-  font-size: 1.9rem; /* Size of social icons */
-  transition: color 0.3s ease, transform 0.3s ease;
-  display: inline-block; /* Allows transform */
-}
-
-.social-link:hover {
-  color: var(--accent-color);
-  transform: scale(1.15) translateY(-2px); /* Scale and lift effect */
-}
-
-.contact-form-container {
-  flex: 2; /* Takes up 2 parts of the space */
-  min-width: 320px; /* Minimum width before wrapping */
-}
-
-#contact-form .form-group {
-  margin-bottom: 20px;
-  position: relative; /* For potential icon addons later */
-}
-
-#contact-form label {
-  display: block;
-  margin-bottom: 8px;
-  color: var(--secondary-text-color);
-  font-size: 0.85rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-#contact-form input[type='text'],
-#contact-form input[type='email'],
-#contact-form textarea {
-  width: 100%;
-  padding: 14px 18px; /* Slightly larger padding */
-  background-color: rgba(2, 16, 34, 0.7); /* Dark input background */
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  color: var(--primary-text-color);
-  font-size: 0.95rem;
-  font-family: 'Roboto', sans-serif;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-}
-
-#contact-form input[type='text']:focus,
-#contact-form input[type='email']:focus,
-#contact-form textarea:focus {
-  background-color: rgba(2, 16, 34, 0.9); /* Slightly darker on focus */
-  border-color: var(--accent-color);
-  outline: none;
-  box-shadow: 0 0 10px -2px var(--glow-color); /* Subtle focus glow */
-}
-
-#contact-form textarea {
-  resize: vertical; /* Allow vertical resize */
-  min-height: 120px;
-}
-
-.submit-button {
-  padding: 14px 30px;
-  background-color: var(--accent-color);
-  color: #021022; /* Use dark background color for text */
-  border: none;
-  border-radius: 5px;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-  display: inline-flex; /* Align icon */
-  align-items: center;
-  gap: 10px; /* Space between text and icon */
-  margin-top: 10px;
-}
-
-.submit-button i {
-  font-size: 0.9rem;
-}
-
-.submit-button:hover {
-  background-color: #4fffff; /* Lighter cyan */
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 6px 18px rgba(0, 255, 255, 0.35);
-}
-
-.submit-button:active {
-  transform: translateY(-1px) scale(1);
-  box-shadow: 0 3px 10px rgba(0, 255, 255, 0.2);
-}
-
-/* Optional: Style for form status messages */
-.form-status {
-  margin-top: 15px;
-  font-size: 0.9rem;
-  /* Add styles for success/error messages (e.g., color) */
-  /* Example: .form-status.success { color: var(--accent-color); } */
-  /* Example: .form-status.error { color: #ff6b6b; } */
-}
-
-/* --- Animations for Contact Section --- */
-@media (prefers-reduced-motion: no-preference) {
+  /* Contact Section Animations */
   #contact .section-heading {
-    opacity: 0; /* Start hidden */
+    opacity: 0;
     animation: fadeInUp 0.6s 0.2s ease-out forwards;
   }
-
-  .contact-info {
+  #contact .contact-info {
     opacity: 0;
     animation: fadeInUp 0.7s 0.4s ease-out forwards;
   }
-
-  .contact-form-container {
+  #contact .contact-form-container {
     opacity: 0;
-    animation: fadeInUp 0.7s 0.6s ease-out forwards; /* Delay slightly more */
-  }
-
-  .social-link {
-    /* Add transform to transition property */
-    transition: color 0.3s ease, transform 0.3s ease;
+    animation: fadeInUp 0.7s 0.6s ease-out forwards;
   }
 }
 
-/* --- Responsive Adjustments for Contact --- */
+/* ============================================= */
+/* === Responsive Adjustments === */
+/* ============================================= */
 @media (max-width: 768px) {
-  .contact-container {
+  /* Adjust section padding for smaller screens */
+  #profile,
+  #skills,
+  #projects,
+  #contact {
+    padding: 20px 25px;
+  }
+
+  .section-heading {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+  }
+
+  /* Adjust internal max-heights */
+  #skills .skills-grid-container,
+  #projects .projects-grid,
+  #contact .contact-container {
+    max-height: calc(100% - 90px); /* Example adjustment */
+    padding: 10px; /* Reduce padding slightly */
+  }
+
+  /* Profile adjustments */
+  #profile .profile-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+  }
+  #profile .profile-image,
+  #profile .profile-image-glow {
+    width: 150px;
+    height: 150px;
+  }
+  #profile .profile-name {
+    font-size: 2rem;
+  }
+  #profile .profile-title {
+    font-size: 1.1rem;
+  }
+  #profile .tech-divider {
+    margin: 15px auto 0 auto;
+  }
+
+  /* Skills adjustments */
+  #skills .skills-grid {
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  }
+  #skills .skill-icon {
+    font-size: 2.2rem;
+  }
+
+  /* Projects adjustments */
+  #projects .projects-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+  }
+  #projects .project-title {
+    font-size: 1.2rem;
+  }
+
+  /* Contact adjustments */
+  #contact .contact-container {
     gap: 30px; /* Reduce gap when stacked */
   }
-  .contact-info,
-  .contact-form-container {
+  #contact .contact-info,
+  #contact .contact-form-container {
     min-width: 100%; /* Ensure they stack nicely */
     flex-basis: 100%;
+  }
+  #contact .contact-info {
+    text-align: center;
+  }
+  #contact .social-links {
+    justify-content: center;
+  } /* Center icons */
+  #contact .contact-form-intro {
+    text-align: left;
+  } /* Keep form intro aligned left */
+}
+
+@media (max-width: 480px) {
+  #profile,
+  #skills,
+  #projects,
+  #contact {
+    padding: 15px;
+  }
+
+  .section-heading {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+  }
+  #skills .skills-grid-container,
+  #projects .projects-grid,
+  #contact .contact-container {
+    max-height: calc(100% - 80px); /* Example adjustment */
+  }
+
+  /* Profile */
+  #profile .profile-image,
+  #profile .profile-image-glow {
+    width: 120px;
+    height: 120px;
+  }
+  #profile .profile-name {
+    font-size: 1.8rem;
+  }
+  #profile .profile-title {
+    font-size: 1rem;
+  }
+  #profile .profile-description {
+    font-size: 0.9rem;
+  }
+
+  /* Skills */
+  #skills .skills-grid {
+    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  }
+  #skills .skill-item {
+    padding: 15px 10px;
+  }
+  #skills .skill-icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+  #skills .skill-name {
+    font-size: 0.8rem;
+  }
+
+  /* Projects */
+  #projects .projects-grid {
+    grid-template-columns: 1fr; /* Stack cards */
+    gap: 20px;
+    padding: 15px 5px; /* Adjust padding */
+  }
+  #projects .project-image {
+    height: 180px;
+  }
+  #projects .project-content {
+    padding: 15px;
+  }
+  #projects .project-title {
+    font-size: 1.1rem;
+  }
+  #projects .project-description {
+    font-size: 0.85rem;
+  }
+  #projects .tag {
+    font-size: 0.65rem;
+    padding: 3px 8px;
+  }
+  #projects .project-link {
+    font-size: 0.8rem;
+  }
+
+  /* Contact */
+  #contact #contact-form input[type='text'],
+  #contact #contact-form input[type='email'],
+  #contact #contact-form textarea {
+    padding: 12px 15px;
+    font-size: 0.9rem;
+  }
+  #contact .submit-button {
+    padding: 12px 25px;
+    font-size: 0.9rem;
+  }
+  #contact .social-link {
+    font-size: 1.7rem;
+  }
+  #contact .contact-intro,
+  #contact .contact-form-intro {
+    font-size: 0.95rem;
   }
 }

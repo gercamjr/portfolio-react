@@ -6,17 +6,16 @@ import './global.css' // Import global styles
 
 // Replace with your actual details
 const profileData = {
-  name: 'YOUR NAME',
+  name: 'GERARDO CAMORLINGA JR',
   title: 'Software Engineer',
   description:
     'Driven software engineer specializing in building scalable web applications and exploring cutting-edge technologies. Passionate about clean code, innovative solutions, and pushing the boundaries of digital experiences. Always eager to learn and collaborate on challenging projects.',
-  imageUrl: 'https://via.placeholder.com/200', // Replace with your image path or URL
+  imageUrl: 'https://placeholder.com/200', // Replace with your image path or URL
 }
 
 function App() {
   return (
     <div className='App'>
-      {' '}
       {/* Optional wrapper div */}
       <Profile
         name={profileData.name}
