@@ -5,14 +5,13 @@ import { socialLinks } from '../../data/socialLinksData'
 import useAnimateOnScroll from '../../hooks/useAnimateOnScroll'
 
 const Contact: React.FC = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [sectionRef, isVisible] = useAnimateOnScroll<HTMLDivElement>({ threshold: 0.1, triggerOnce: true })
+  // const [sectionRef, isVisible] = useAnimateOnScroll<HTMLDivElement>({ threshold: 0.1, triggerOnce: true })
   const [headingRef, isHeadingVisible] = useAnimateOnScroll<HTMLHeadingElement>({ threshold: 0.5, triggerOnce: true })
   const [infoRef, isInfoVisible] = useAnimateOnScroll<HTMLDivElement>({ threshold: 0.2, triggerOnce: true })
   const [formRef, isFormVisible] = useAnimateOnScroll<HTMLDivElement>({ threshold: 0.1, triggerOnce: true })
 
   return (
-    <div id='contact' ref={sectionRef}>
+    <div id='contact'>
       <h2 ref={headingRef} className={`section-heading animate-fade-up ${isHeadingVisible ? 'is-visible' : ''}`}>
         Get In Touch
       </h2>

@@ -1,11 +1,14 @@
 {
   "name": "portfolio-react",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "homepage": "htps://gercamjr.github.io/portfolio-react",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "lint": "eslint .",
     "preview": "vite preview"
   },
