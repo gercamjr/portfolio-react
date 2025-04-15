@@ -3,14 +3,15 @@ import Skills from './components/Skills/Skills'
 import Projects from './components/Projects/Projects'
 import Contact from './components/Contact/Contact'
 import './global.css' // Import global styles
+// import profile-image from assets directory
 
 // Replace with your actual details
 const profileData = {
-  name: 'GERARDO CAMORLINGA JR',
+  name: 'Marvin',
   title: 'Software Engineer',
   description:
     'Driven software engineer specializing in building scalable web applications and exploring cutting-edge technologies. Passionate about clean code, innovative solutions, and pushing the boundaries of digital experiences. Always eager to learn and collaborate on challenging projects.',
-  imageUrl: 'https://placeholder.com/200', // Replace with your image path or URL
+  imageUrl: '/profile-image.png', // Replace with your image path or URL
 }
 
 function App() {
