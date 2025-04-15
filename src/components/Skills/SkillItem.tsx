@@ -8,10 +8,10 @@ interface SkillItemProps {
 
 const SkillItem: React.FC<SkillItemProps> = ({ skill }) => {
   return (
-    <div className='skill-item'>
+    <>
       <FontAwesomeIcon icon={skill.icon} className='skill-icon' />
       <span className='skill-name'>{skill.name}</span>
-    </div>
+    </>
   )
 }
 

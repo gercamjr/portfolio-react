@@ -13,7 +13,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const codeLink = project.links.find((link) => link.type === 'code')
 
   return (
-    <div className='project-card'>
+    <>
       <img src={project.imageUrl} alt={`${project.title} Screenshot`} className='project-image' />
       <div className='project-content'>
         <h3 className='project-title'>{project.title}</h3>
@@ -38,7 +38,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           )}
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

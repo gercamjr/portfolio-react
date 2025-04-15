@@ -1,18 +1,24 @@
 import React from 'react'
 import SocialLink from './SocialLink'
 import ContactForm from './ContactForm'
-import { socialLinks } from '../../data/socialLinksData' // Import the data
+import { socialLinks } from '../../data/socialLinksData'
+import useAnimateOnScroll from '../../hooks/useAnimateOnScroll'
 
 const Contact: React.FC = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [sectionRef, isVisible] = useAnimateOnScroll<HTMLDivElement>({ threshold: 0.1, triggerOnce: true })
+  const [headingRef, isHeadingVisible] = useAnimateOnScroll<HTMLHeadingElement>({ threshold: 0.5, triggerOnce: true })
+  const [infoRef, isInfoVisible] = useAnimateOnScroll<HTMLDivElement>({ threshold: 0.2, triggerOnce: true })
+  const [formRef, isFormVisible] = useAnimateOnScroll<HTMLDivElement>({ threshold: 0.1, triggerOnce: true })
+
   return (
-    <div id='contact' className='section-container'>
-      <h2 className='section-heading'>Get In Touch</h2>
+    <div id='contact' ref={sectionRef}>
+      <h2 ref={headingRef} className={`section-heading animate-fade-up ${isHeadingVisible ? 'is-visible' : ''}`}>
+        Get In Touch
+      </h2>
       <div className='contact-container'>
-        <div className='contact-info'>
-          <p className='contact-intro'>
-            Have a project idea, a question, or just want to connect? Feel free to reach out! You can find me on these
-            platforms:
-          </p>
+        <div ref={infoRef} className={`contact-info animate-fade-up ${isInfoVisible ? 'is-visible' : ''}`}>
+          {/* ... existing intro text ... */}
           <div className='social-links'>
             {socialLinks.map((link) => (
               <SocialLink key={link.title} link={link} />
@@ -21,7 +27,7 @@ const Contact: React.FC = () => {
           <p className='contact-form-intro'>Or send me a message directly:</p>
         </div>
 
-        <div className='contact-form-container'>
+        <div ref={formRef} className={`contact-form-container animate-fade-up ${isFormVisible ? 'is-visible' : ''}`}>
           <ContactForm />
         </div>
       </div>

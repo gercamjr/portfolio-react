@@ -297,7 +297,7 @@ html {
   transition: transform 0.3s ease, box-shadow 0.4s ease, border-color 0.3s ease;
 }
 
-#projects .project-card:hover {
+#projects .project-card.is-visible:hover {
   transform: translateY(-6px);
   border-color: var(--accent-color);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5), 0 0 18px var(--glow-color);
@@ -591,54 +591,124 @@ html {
 /* ============================================= */
 /* === Applying Animations === */
 /* ============================================= */
+/* ============================================= */
+/* === Scroll-Triggered Animation Setup === */
+/* ============================================= */
+
+/* --- Initial States (Before Visible) --- */
+/* Define the starting point for elements you want to animate */
+
+/* Example: Fade Up */
+.animate-fade-up {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+/* Example: Scale In */
+.animate-scale-in {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Example: Stagger children (apply delays directly here) */
+/* Skills Items */
+#skills .skill-item {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  /* Base delay can be added here if needed, but stagger below is better */
+}
+/* Project Cards */
+#projects .project-card {
+  opacity: 0;
+  transform: scale(0.95) translateY(10px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* --- Visible State (Applied via .is-visible class) --- */
 @media (prefers-reduced-motion: no-preference) {
-  /* Profile Section Animations */
-  #profile .profile-image-frame {
-    opacity: 0;
-    animation: scaleIn 0.7s 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-  }
-  #profile .profile-text {
-    opacity: 0;
-    animation: fadeInUp 0.8s 0.5s ease-out forwards;
-  }
-
-  /* Skills Section Animations */
-  #skills .section-heading {
-    opacity: 0;
-    animation: fadeInUp 0.6s 0.2s ease-out forwards;
-  }
-  #skills .skill-item {
-    opacity: 0;
-    animation: fadeInScaleUp 0.5s 0.4s ease-out forwards;
-    /* Manual Staggering (Example) */
-    /* &:nth-child(1) { animation-delay: 0.4s; } ... */
+  #skills .skill-item.is-visible, /* Combine ID + class + .is-visible */
+#projects .project-card.is-visible, /* Combine ID + class + .is-visible */
+#profile .profile-image-frame.is-visible, /* Example for Profile */
+#profile .profile-text.is-visible,        /* Example for Profile */
+#contact .contact-info.is-visible,         /* Example for Contact */
+#contact .contact-form-container.is-visible, /* Example for Contact */
+#skills .section-heading.is-visible,
+#projects .section-heading.is-visible,
+#contact .section-heading.is-visible {
+    opacity: 1;
+    /* Resets transform to default */
   }
 
-  /* Projects Section Animations */
-  #projects .section-heading {
-    opacity: 0;
-    animation: fadeInUp 0.6s 0.2s ease-out forwards;
+  /* Apply Staggering Delays using transition-delay on specific items when they become visible */
+  /* Stagger Skill Items */
+  /* These delays apply *when* .is-visible is added */
+  #skills .skill-item:nth-child(1).is-visible {
+    transition-delay: 0.1s;
   }
-  #projects .project-card {
-    opacity: 0;
-    animation: fadeInScaleUp 0.6s ease-out forwards;
-    animation-delay: 0.4s;
-    /* Manual Staggering (Example) */
-    /* &:nth-child(1) { animation-delay: 0.4s; } ... */
+  #skills .skill-item:nth-child(2).is-visible {
+    transition-delay: 0.15s;
+  }
+  #skills .skill-item:nth-child(3).is-visible {
+    transition-delay: 0.2s;
+  }
+  #skills .skill-item:nth-child(4).is-visible {
+    transition-delay: 0.25s;
+  }
+  #skills .skill-item:nth-child(5).is-visible {
+    transition-delay: 0.3s;
+  }
+  #skills .skill-item:nth-child(6).is-visible {
+    transition-delay: 0.35s;
+  }
+  #skills .skill-item:nth-child(7).is-visible {
+    transition-delay: 0.4s;
+  }
+  #skills .skill-item:nth-child(8).is-visible {
+    transition-delay: 0.45s;
   }
 
-  /* Contact Section Animations */
-  #contact .section-heading {
-    opacity: 0;
-    animation: fadeInUp 0.6s 0.2s ease-out forwards;
+  #skills .skill-item:nth-child(9).is-visible {
+    transition-delay: 0.5s;
   }
-  #contact .contact-info {
-    opacity: 0;
-    animation: fadeInUp 0.7s 0.4s ease-out forwards;
+
+  #skills .skill-item:nth-child(10).is-visible {
+    transition-delay: 0.55s;
   }
-  #contact .contact-form-container {
-    opacity: 0;
-    animation: fadeInUp 0.7s 0.6s ease-out forwards;
+
+  #skills .skill-item:nth-child(11).is-visible {
+    transition-delay: 0.6s;
+  }
+
+  #skills .skill-item:nth-child(12).is-visible {
+    transition-delay: 0.65s;
+  }
+  /* Add more as needed */
+
+  /* Stagger Project Cards */
+  #projects .project-card:nth-child(odd).is-visible {
+    transition-delay: 0.1s;
+  }
+  #projects .project-card:nth-child(even).is-visible {
+    transition-delay: 0.2s;
+  }
+
+  /* Stagger Contact Info/Form */
+  #contact .contact-info.is-visible {
+    transition-delay: 0.1s;
+  }
+  #contact .contact-form-container.is-visible {
+    transition-delay: 0.2s;
+  }
+
+  /* Stagger Profile Elements */
+  #profile .profile-image-frame.is-visible {
+    transition-delay: 0.1s;
+  }
+  #profile .profile-text.is-visible {
+    transition-delay: 0.2s;
   }
 }
 

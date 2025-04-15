@@ -1,18 +1,28 @@
 import React from 'react'
 import ProjectCard from './ProjectCard'
-import { projects } from '../../data/projectsData' // Import the data
+import { projects } from '../../data/projectsData'
+import useAnimateOnScroll from '../../hooks/useAnimateOnScroll'
 
 const Projects: React.FC = () => {
+  const [sectionRef, isVisible] = useAnimateOnScroll<HTMLDivElement>({ threshold: 0.05, triggerOnce: false }) // Trigger sooner
+  const [headingRef, isHeadingVisible] = useAnimateOnScroll<HTMLHeadingElement>({ threshold: 0.5, triggerOnce: false })
+
   return (
-    <div id='projects' className='section-container'>
-      <h2 className='section-heading'>Projects</h2>
+    <div id='projects' ref={sectionRef}>
+      <h2 ref={headingRef} className={`section-heading animate-fade-up ${isHeadingVisible ? 'is-visible' : ''}`}>
+        Projects
+      </h2>
       <div className='projects-grid'>
         {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
+          // Apply isVisible from parent, CSS handles stagger/delay
+          <div key={project.id} className={`project-card ${isVisible ? 'is-visible' : ''}`}>
+            <ProjectCard project={project} />
+          </div>
         ))}
       </div>
     </div>
   )
 }
+// NOTE: Removed className from ProjectCard itself and wrapped it
 
 export default Projects
