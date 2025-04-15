@@ -2,7 +2,6 @@
   "name": "portfolio-react",
   "private": true,
   "version": "0.1.0",
-  "homepage": "htps://gercamjr.github.io/portfolio-react",
   "type": "module",
   "scripts": {
     "dev": "vite",

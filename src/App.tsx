@@ -10,7 +10,7 @@ const profileData = {
   title: 'Software Engineer',
   description:
     'Driven software engineer specializing in building scalable web applications and exploring cutting-edge technologies. Passionate about clean code, innovative solutions, and pushing the boundaries of digital experiences. Always eager to learn and collaborate on challenging projects.',
-  imageUrl: '/profile-image.png', // Replace with your image path or URL
+  imageUrl: 'https://gercamjr.github.io/portfolio-react/profile-image.png', // Replace with your image path or URL
 }
 
 function App() {
