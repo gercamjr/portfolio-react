@@ -3,7 +3,6 @@ import Skills from './components/Skills/Skills'
 import Projects from './components/Projects/Projects'
 import Contact from './components/Contact/Contact'
 import './global.css' // Import global styles
-// import profile-image from assets directory
 
 // Replace with your actual details
 const profileData = {
